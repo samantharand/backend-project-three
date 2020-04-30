@@ -160,8 +160,7 @@ def edit_user(id):
 	user_to_edit = models.User.get_by_id(id)
 
 	if current_user.id == user_to_edit.id:
-		# user_to_edit
-		print('hlskdjf')
+
 		user_to_edit.username = payload['username']
 		user_to_edit.email = payload['email']
 		user_to_edit.age = payload['age']
@@ -188,6 +187,34 @@ def edit_user(id):
 
 
 # destroy user
+@users.route('/<id>', methods=['DELETE'])
+@login_required
+def delete_account(id):
+	user_to_delete = models.User.get_by_id(id)
+
+	# print("USER TO DELETE.id", user_to_delete.id)
+	# print("type(USER TO DELETE.id", type(user_to_delete.id))
+	# print('current_user.id', current_user.id)
+	# print('type current_user.id', type(current_user.id))
+	if current_user.id == user_to_delete.id:
+		user_to_delete.delete_instance()
+
+		return jsonify(
+			data = {},
+			message = "account successfully deleted",
+			status = 200
+		), 200
+
+	else:
+		
+		return jsonify(
+			data = {},
+			message = "That's not your account :(",
+			status = 403
+		), 403
+
+	return "check term - delete route"
+
 
 
 
