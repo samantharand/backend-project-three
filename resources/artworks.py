@@ -104,11 +104,30 @@ def edit_artwork(id):
 			status = 403
 		), 403
 
-	# return "check terminal"
-
 
 # d e s t r o y artwork
+@artworks.route('/<id>', methods=['DELETE'])
+@login_required
+def delete_art(id):
+	art_to_delete = models.Artwork.get_by_id(id)
+	
+	if current_user.id == art_to_delete.artist.id:
+		
+		art_to_delete.delete_instance()
 
+		return jsonify(
+			data = {},
+			message = "Successfully deleted artwork",
+			status = 201
+		), 201
+	
+	else:
+
+		return jsonify(
+			data = {},
+			message = "That's not your artwork :(",
+			status = 403
+		), 403
 
 
 
