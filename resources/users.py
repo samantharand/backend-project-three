@@ -1,7 +1,7 @@
 import models
 
 from flask import Blueprint, request, jsonify
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 from flask_bcrypt import generate_password_hash, check_password_hash
 from playhouse.shortcuts import model_to_dict
 
@@ -152,7 +152,26 @@ def show_user(id):
 		status = 200
 	), 200
 
+# edit user
+@users.route('/<id>', methods=['POST'])
+@login_required
+def edit_user(id):
+	payload = request.get_json()
+	user_to_edit = models.User.get_by_id(id)
 
+
+
+
+
+
+	# user_to_edit_dict = model_to_dict(user_to_edit)
+	# user_to_edit_dict.pop('password')
+	print("payload", payload)
+	print("USER TO EDIT", user_to_edit)
+	return "check term"
+
+
+# destroy user
 
 
 

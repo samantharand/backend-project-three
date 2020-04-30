@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import models
 
 from resources.users import users
@@ -21,6 +21,17 @@ def load_user(user_id):
 		return models.User.get_by_id(user_id)
 	except models.DoesNotExist:
 		return None
+
+# auth message
+@login_manager.unauthorized_handler
+def unauthoried():
+	return jsonify(
+		data = {
+			'ERROR': 'user not logged in'
+		},
+		message = 'You have to be logged in to do that!',
+		status = 404
+	), 404
 
 app.register_blueprint(users, url_prefix="/users")
 
