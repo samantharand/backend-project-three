@@ -18,7 +18,7 @@ class User(UserMixin, Model):
 		database = DATABASE
 
 
-class Artworks(Model):
+class Artwork(Model):
 	title = CharField()
 	artist = ForeignKeyField(User, backref='artwork')
 	inspiration = TextField()
@@ -31,7 +31,7 @@ class Artworks(Model):
 
 def initialize():
 	DATABASE.connect()
-	DATABASE.create_tables([User, Artworks], safe=True)
+	DATABASE.create_tables([User, Artwork], safe=True)
 	print('Connected to database [models.py line 23]')
 
 	DATABASE.close()
