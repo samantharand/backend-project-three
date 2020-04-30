@@ -115,6 +115,7 @@ def login_artist():
 			status = 401
 		), 401
 
+# logout
 @users.route('/logout', methods=['GET'])
 def logout():
 	logout_user()
@@ -192,10 +193,6 @@ def edit_user(id):
 def delete_account(id):
 	user_to_delete = models.User.get_by_id(id)
 
-	# print("USER TO DELETE.id", user_to_delete.id)
-	# print("type(USER TO DELETE.id", type(user_to_delete.id))
-	# print('current_user.id', current_user.id)
-	# print('type current_user.id', type(current_user.id))
 	if current_user.id == user_to_delete.id:
 		user_to_delete.delete_instance()
 
@@ -206,7 +203,7 @@ def delete_account(id):
 		), 200
 
 	else:
-		
+
 		return jsonify(
 			data = {},
 			message = "That's not your account :(",
@@ -214,20 +211,4 @@ def delete_account(id):
 		), 403
 
 	return "check term - delete route"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
