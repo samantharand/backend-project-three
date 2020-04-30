@@ -153,22 +153,38 @@ def show_user(id):
 	), 200
 
 # edit user
-@users.route('/<id>', methods=['POST'])
+@users.route('/<id>', methods=['PUT'])
 @login_required
 def edit_user(id):
 	payload = request.get_json()
 	user_to_edit = models.User.get_by_id(id)
 
+	if current_user.id == user_to_edit.id:
+		# user_to_edit
+		print('hlskdjf')
+		user_to_edit.username = payload['username']
+		user_to_edit.email = payload['email']
+		user_to_edit.age = payload['age']
+		user_to_edit.location = payload['location']
+		user_to_edit.bio = payload['bio']
 
+		user_to_edit.save()
 
+		user_to_edit_dict = model_to_dict(user_to_edit)
 
+		return jsonify(
+			data = user_to_edit_dict,
+			message = 'Successfully edited your profile',
+			status = 201
+		), 201
 
+	else:
 
-	# user_to_edit_dict = model_to_dict(user_to_edit)
-	# user_to_edit_dict.pop('password')
-	print("payload", payload)
-	print("USER TO EDIT", user_to_edit)
-	return "check term"
+		return jsonify(
+			data = {},
+			message = "That's not your account :(",
+			status = 403
+		), 403
 
 
 # destroy user
