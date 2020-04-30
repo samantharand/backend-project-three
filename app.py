@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 import models
 
 from resources.users import users
+from resources.artworks import artworks
 from flask_login import LoginManager
 
 DEBUG=True
@@ -33,7 +34,9 @@ def unauthoried():
 		status = 404
 	), 404
 
-app.register_blueprint(users, url_prefix="/users")
+# blueprints
+app.register_blueprint(users, url_prefix='/users')
+app.register_blueprint(artworks, url_prefix='/artworks')
 
 @app.route('/', methods=['GET'])
 def hello_world():

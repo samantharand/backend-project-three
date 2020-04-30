@@ -17,20 +17,21 @@ class User(UserMixin, Model):
 	class Meta:
 		database = DATABASE
 
-class Artwork(Model):
+
+class Artworks(Model):
 	title = CharField()
-	artist = ForeignKey(User, backref='artwork')
+	artist = ForeignKeyField(User, backref='artwork')
 	inspiration = TextField()
 	medium = CharField()
 	date_made = DateTimeField()
-	date_posted = DateTimeField(defaul=datetime.datetime.now)
+	date_posted = DateTimeField(default=datetime.datetime.now)
 
 	class Meta:
 		database = DATABASE
 
 def initialize():
 	DATABASE.connect()
-	DATABASE.create_tables([User, Artwork], safe=True)
+	DATABASE.create_tables([User, Artworks], safe=True)
 	print('Connected to database [models.py line 23]')
 
 	DATABASE.close()
