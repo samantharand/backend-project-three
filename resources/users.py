@@ -1,7 +1,7 @@
 import models
 
 from flask import Blueprint, request, jsonify
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 from flask_bcrypt import generate_password_hash, check_password_hash
 from playhouse.shortcuts import model_to_dict
 
@@ -88,7 +88,7 @@ def login_artist():
 			login_user(user)
 
 			user_dict.pop('password')
-
+			
 			return jsonify(
 				data = user_dict,
 				message = f'Hey {user_dict["username"]}!',
@@ -133,8 +133,24 @@ def display_all_users():
 	for user_dict in user_dicts:
 		user_dict.pop('password')
 
-	print(user_dicts)
-	return jsonify(user_dicts)
+	# print("USER_DICTS in display_all_users()", user_dicts)
+	# print("CURRENT USER in display_all_users()", current_user)
+	return jsonify(
+		data = user_dicts,
+		message = f"{len(user_dicts)} users found!")
+
+# user show route
+@users.route('/<id>', methods=['GET'])
+def show_user(id):
+	user = models.User.get(models.User.id == id)
+	user_dict = model_to_dict(user)
+	user_dict.pop('password')
+	print(user_dict)
+	return jsonify(
+		data = user_dict,
+		message = f'Displaying info for {user_dict["username"]}, ID#{user_dict["id"]}',
+		status = 200
+	), 200
 
 
 
