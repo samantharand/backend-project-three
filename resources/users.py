@@ -2,7 +2,7 @@ import models
 
 from flask import Blueprint, request, jsonify
 from flask_login import login_user
-from flask_bcrypt import generate_password_hash
+from flask_bcrypt import generate_password_hash, check_password_hash
 from playhouse.shortcuts import model_to_dict
 
 users = Blueprint('users', 'users')
@@ -26,9 +26,9 @@ def register():
 		models.User.get(models.User.username == payload['username'])
 		
 		return jsonify(
-			data={},
-			message="Sorry, that username is already registered :(",
-			status=401
+			data = {},
+			message = "Sorry, that username is already registered :(",
+			status = 401
 		), 401
 
 	except models.DoesNotExist:
@@ -37,9 +37,9 @@ def register():
 			models.User.get(models.User.email == payload['email'])
 
 			return jsonify(
-				data={},
-				message="Sorry, that email is already registered :(",
-				status=401
+				data = {},
+				message = "Sorry, that email is already registered :(",
+				status = 401
 			), 401
 
 		except models.DoesNotExist:
@@ -62,19 +62,61 @@ def register():
 			print('CREATED_USER_DICT, users.py line 60', created_user_dict)
 
 			return jsonify(
-				data=created_user_dict,
-				message="User created :)",
-				status=201
+				data = created_user_dict,
+				message = "User created :)",
+				status = 201
 			), 201
 
 @users.route('/login', methods=['POST'])
-def login_user():
+def login_artist():
 
 	payload = request.get_json()
 	payload['username'] = payload['username'].lower()
-
 	print("Login route, here's payload", payload)
-	return 'login route'
+
+	# look up username to see if it exists
+	try:
+		user = models.User.get(models.User.username == payload['username'])
+		# check password !! remember hash! 
+
+		user_dict = model_to_dict(user)
+		print("USER DICT from line 83 in users", user_dict)
+		good_password = check_password_hash(user_dict['password'], payload['password'])
+
+		if good_password:
+
+			login_user(user)
+
+			user_dict.pop('password')
+
+			return jsonify(
+				data = user_dict,
+				message = f'Hey {user_dict["username"]}!',
+				status = 201
+			), 201
+
+		else:
+
+			print("bad password")
+
+			return jsonify(
+				data = {},
+				message = "Wrong username or password :(",
+				status = 401
+			), 401
+
+	except models.DoesNotExist:
+
+		print("bad username")
+
+		return jsonify(
+			data = {},
+			message = "Wrong username or password :(",
+			status = 401
+		), 401
+
+
+	
 
 
 
