@@ -11,17 +11,17 @@
 
 ### MODELS
 * Arwork
-** ID
-** Name 
-** Date(s) Made
-** Date Posted
-** Artist
-** Inspiration
-** Medium
+	* ID
+	* Name 
+	* Date(s) Made
+	* Date Posted
+	* Artist
+	* Inspiration
+	* Medium
 
 * Artist
-** ID
-** Username
-** Email
-** Password
+	* ID
+	* Username
+	* Email
+	* Password
 
