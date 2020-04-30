@@ -58,7 +58,18 @@ def display_all_art():
 	), 200
 
 # show page
-
+@artworks.route('/<id>', methods=['GET'])
+def show_art(id):
+	art = models.Artwork.get_by_id(id)
+	
+	art_dict = model_to_dict(art)
+	art_dict['artist'].pop('password')
+	print(art_dict)
+	return jsonify(
+		data = art_dict,
+		message = f'Displaying {art_dict["title"]}, ID#{art_dict["id"]}',
+		status = 200
+	), 200
 
 # edit artwork
 
