@@ -29,7 +29,8 @@ def register():
 			data={},
 			message="Sorry, that username is already registered :(",
 			status=401
-		)
+		), 401
+
 	except models.DoesNotExist:
 		# see if email is already registered
 		try:
@@ -39,7 +40,8 @@ def register():
 				data={},
 				message="Sorry, that email is already registered :(",
 				status=401
-			)
+			), 401
+
 		except models.DoesNotExist:
 			#create account
 			created_user = models.User.create(
@@ -53,13 +55,21 @@ def register():
 
 			print('CREATED_USER, users.py line 53', created_user)
 
-			# login_user(created_user)
+			login_user(created_user)
 
 			created_user_dict = model_to_dict(created_user)
 			created_user_dict.pop('password')
 			print('CREATED_USER_DICT, users.py line 60', created_user_dict)
 
-	return "check term"
+			return jsonify(
+				data=created_user_dict,
+				message="User created :)",
+				status=201
+			), 201
+
+# @users.route('/login', methods=['POST'])
+
+
 
 
 
