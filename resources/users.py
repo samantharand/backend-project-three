@@ -8,3 +8,8 @@ users = Blueprint('users', 'users')
 def users_test_route():
 	print('users_test_route')
 	return 'users_test_route'
+
+# create new user (register)
+@users.route('/', methods=['POST'])
+def register():
+	return "register page hit"
