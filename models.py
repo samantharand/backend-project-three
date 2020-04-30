@@ -23,6 +23,7 @@ class Artwork(Model):
 	artist = ForeignKeyField(User, backref='artwork')
 	inspiration = TextField()
 	medium = CharField()
+	image = CharField()
 	date_made = DateTimeField()
 	date_posted = DateTimeField(default=datetime.datetime.now)
 

@@ -67,6 +67,7 @@ def register():
 				status = 201
 			), 201
 
+#login route
 @users.route('/login', methods=['POST'])
 def login_artist():
 
