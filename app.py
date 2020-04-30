@@ -14,6 +14,14 @@ app.secret_key = "dont hack me pls"
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+# making the session ! 
+@login_manager.user_loader
+def load_user(user_id):
+	try:
+		return models.User.get_by_id(user_id)
+	except models.DoesNotExist:
+		return None
+
 app.register_blueprint(users, url_prefix="/users")
 
 @app.route('/', methods=['GET'])

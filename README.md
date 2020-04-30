@@ -6,8 +6,8 @@
 ### INITIAL BACKEND BREAKDOWN
 ![Database Structure](https://i.imgur.com/mODGVcb.jpg)
 ![Routes](https://i.imgur.com/lB9tMUL.jpg)
-![Artist Paths](https://i.imgur.com/aYzrfDC.jpg)
-![Stretch Goals](https://i.imgur.com/BGugDaf.jpg)
+![Artist Paths](https://i.imgur.com/vcjR8wk.jpg)
+![Stretch Goals](https://i.imgur.com/LYpg64X.jpg)
 
 ### MODELS
 * Arwork
