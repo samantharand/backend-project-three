@@ -67,7 +67,14 @@ def register():
 				status=201
 			), 201
 
-# @users.route('/login', methods=['POST'])
+@users.route('/login', methods=['POST'])
+def login_user():
+
+	payload = request.get_json()
+	payload['username'] = payload['username'].lower()
+
+	print("Login route, here's payload", payload)
+	return 'login route'
 
 
 
