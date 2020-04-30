@@ -124,7 +124,17 @@ def logout():
 		status = 200
 	), 200
 	
+# user index page
+@users.route('/all', methods=['GET'])
+def display_all_users():
+	users = models.User.select()
+	user_dicts = [ model_to_dict(user) for user in users]
 
+	for user_dict in user_dicts:
+		user_dict.pop('password')
+
+	print(user_dicts)
+	return jsonify(user_dicts)
 
 
 
