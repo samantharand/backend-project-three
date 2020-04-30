@@ -2,7 +2,7 @@ import models
 
 from flask import Blueprint, request, jsonify
 from playhouse.shortcuts import model_to_dict
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 
 artworks = Blueprint('artworks', 'artworks')
@@ -72,6 +72,39 @@ def show_art(id):
 	), 200
 
 # edit artwork
+@artworks.route('/<id>', methods=['PUT'])
+@login_required
+def edit_artwork(id):
+	payload = request.get_json()
+	artwork_to_edit = models.Artwork.get_by_id(id)
+
+
+	if current_user.id == artwork_to_edit.artist.id:
+		
+		artwork_to_edit.title = payload['title']
+		artwork_to_edit.inspiration = payload['inspiration']
+		artwork_to_edit.medium = payload['medium']
+		artwork_to_edit.image = payload['image']
+		artwork_to_edit.date_made = payload['date_made']
+
+		artwork_to_edit_dict = model_to_dict(artwork_to_edit)
+		artwork_to_edit_dict['artist'].pop('password')
+
+		return jsonify(
+			data = artwork_to_edit_dict,
+			message = 'Successfully edited your art',
+			status = 201
+		), 201
+
+	else: 
+
+		return jsonify(
+			data = {},
+			message = "That's not your artwork :(",
+			status = 403
+		), 403
+
+	# return "check terminal"
 
 
 # d e s t r o y artwork
