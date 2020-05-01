@@ -13,7 +13,7 @@ def users_test_route():
 	return 'users_test_route'
 
 # create new user (register)
-@users.route('/', methods=['POST'])
+@users.route('/register', methods=['POST'])
 def register():
 	## get things adding to db - BUILD OUT THE REST OF THE REgISTER/NEW USER ROUTE 
 	payload = request.get_json()
@@ -139,7 +139,9 @@ def display_all_users():
 	# print("CURRENT USER in display_all_users()", current_user)
 	return jsonify(
 		data = user_dicts,
-		message = f"{len(user_dicts)} users found!")
+		message = f"{len(user_dicts)} users found!",
+		status = 200
+	), 200
 
 # user show route
 @users.route('/<id>', methods=['GET'])

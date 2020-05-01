@@ -4,6 +4,7 @@ import models
 from resources.users import users
 from resources.artworks import artworks
 from flask_login import LoginManager
+from flask_cors import CORS
 
 DEBUG=True
 PORT=8000
@@ -33,6 +34,10 @@ def unauthoried():
 		message = 'You have to be logged in to do that!',
 		status = 404
 	), 404
+
+# CORS
+CORS(artworks, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(users, origins=['http://localhost:3000'], supports_credentials=True)
 
 # blueprints
 app.register_blueprint(users, url_prefix='/users')
