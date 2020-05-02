@@ -84,6 +84,8 @@ def edit_artwork(id):
 		artwork_to_edit.image = payload['image']
 		artwork_to_edit.date_made = payload['date_made']
 
+		artwork_to_edit.save()
+
 		artwork_to_edit_dict = model_to_dict(artwork_to_edit)
 		artwork_to_edit_dict['artist'].pop('password')
 
