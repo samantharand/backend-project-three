@@ -43,14 +43,11 @@ def create_art():
 @artworks.route('/all', methods=['GET'])
 def display_all_art():
 	artworks = models.Artwork.select()
-	# artworks_dict = model_to_dict(artworks)
-	# print("artworks_dict", artworks_dict)
+	
 	artwork_dicts = [ model_to_dict(artwork) for artwork in artworks]
 	for artwork_dict in artwork_dicts:
 		artwork_dict['artist'].pop('password')
 
-	print("artwork_dict", artwork_dict)
-	# artwork_dicts = 
 	return jsonify(
 		data = artwork_dicts,
 		message = f'Found {len(artworks)} pieces of art :)',
