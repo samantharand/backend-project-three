@@ -130,15 +130,23 @@ def logout():
 @users.route('/all', methods=['GET'])
 def display_all_users():
 	users = models.User.select()
+	
 	user_dicts = [ model_to_dict(user) for user in users]
-
+	# user_artwork=[model_to_dict(artworks) for artworks in user.artworks for user in users]
 	for user_dict in user_dicts:
 		user_dict.pop('password')
-
+	# print(user_artwork)
+	print('!!!!!')
+	# for user in users:
+	# 	user_artwork.append('hi')
+	# 	# user_artwork.append(user.artworks.selet().dicts())
+	# 	print('ugh')
+	# print(user_artwork)
 	# print("USER_DICTS in display_all_users()", user_dicts)
 	# print("CURRENT USER in display_all_users()", current_user)
 	return jsonify(
 		data = user_dicts,
+		# artworks=user_artwork,
 		message = f"{len(user_dicts)} users found!",
 		status = 200
 	), 200
