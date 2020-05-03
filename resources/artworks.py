@@ -129,16 +129,21 @@ def delete_art(id):
 			status = 403
 		), 403
 
-
+#can use for view account option, if we keep that
 @artworks.route('/myartwork', methods=['GET'])
 @login_required
 def my_artwork():
-	print('CURRENT_USER', current_user)
-	# current_user_artwork = [model_to_dict(artwork) for artwork in current_user]
-	# result = models.Artwork.select().dicts()
+	current_user_dict = model_to_dict(current_user)
+
+	current_user_artwork = [model_to_dict(artworks) for artworks in current_user.artworks]
+	result = models.Artwork.select().dicts()
+
+
 	return jsonify(
-		data={}
-	)
+		data=current_user_artwork,
+		message="Found your artwork!",
+		status=200
+	), 200
 
 
 
