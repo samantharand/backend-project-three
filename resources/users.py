@@ -149,9 +149,14 @@ def show_user(id):
 	user = models.User.get(models.User.id == id)
 	user_dict = model_to_dict(user)
 	user_dict.pop('password')
+
 	print(user_dict)
+	user_artwork = [model_to_dict(artworks) for artworks in user.artworks]
+	print('user_artwork', user_artwork)
+
 	return jsonify(
 		data = user_dict,
+		artworks=user_artwork,
 		message = f'Displaying info for {user_dict["username"]}, ID#{user_dict["id"]}',
 		status = 200
 	), 200

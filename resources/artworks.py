@@ -136,14 +136,13 @@ def my_artwork():
 	current_user_dict = model_to_dict(current_user)
 
 	current_user_artwork = [model_to_dict(artworks) for artworks in current_user.artworks]
-	result = models.Artwork.select().dicts()
-
 
 	return jsonify(
 		data=current_user_artwork,
 		message="Found your artwork!",
 		status=200
 	), 200
+
 
 
 
