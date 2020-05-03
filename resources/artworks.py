@@ -31,6 +31,7 @@ def create_art():
 	# print("CREATED ART", create_art)
 	created_art_dict = model_to_dict(created_art)
 	# print("CREATED ART DICT", created_art_dict)
+	created_art_dict['artist'].pop('password')
 
 
 	return jsonify(
@@ -129,7 +130,15 @@ def delete_art(id):
 		), 403
 
 
-
+@artworks.route('/myartwork', methods=['GET'])
+@login_required
+def my_artwork():
+	print('CURRENT_USER', current_user)
+	# current_user_artwork = [model_to_dict(artwork) for artwork in current_user]
+	# result = models.Artwork.select().dicts()
+	return jsonify(
+		data={}
+	)
 
 
 

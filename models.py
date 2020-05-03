@@ -20,7 +20,7 @@ class User(UserMixin, Model):
 
 class Artwork(Model):
 	title = CharField()
-	artist = ForeignKeyField(User, backref='artwork')
+	artist = ForeignKeyField(User, backref='artworks')
 	inspiration = TextField()
 	medium = CharField()
 	image = CharField()
