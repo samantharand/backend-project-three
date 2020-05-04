@@ -37,8 +37,8 @@ def unauthoried():
 	), 404
 
 # CORS
-CORS(artworks, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(users, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(artworks, origins=['http://localhost:3000', 'https://qu-art.herokuapp.com'], supports_credentials=True)
+CORS(users, origins=['http://localhost:3000', 'https://qu-art.herokuapp.com'], supports_credentials=True)
 
 # blueprints
 app.register_blueprint(users, url_prefix='/users')
