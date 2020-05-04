@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, g
 import models
 
 from resources.users import users
@@ -42,6 +42,19 @@ CORS(users, origins=['http://localhost:3000'], supports_credentials=True)
 # blueprints
 app.register_blueprint(users, url_prefix='/users')
 app.register_blueprint(artworks, url_prefix='/artworks')
+
+@app.before_request
+def before_request():
+	print('you should see this before each request')
+	g.db = models.DATABASE
+	g.db.connect()
+
+@app.after_request
+def after_request():
+	print('you should see this after')
+	g.db.close()
+	return response
+
 
 @app.route('/', methods=['GET'])
 def hello_world():
