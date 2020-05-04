@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify, g
 import models
 
@@ -50,7 +51,7 @@ def before_request():
 	g.db.connect()
 
 @app.after_request
-def after_request():
+def after_request(response):
 	print('you should see this after')
 	g.db.close()
 	return response
@@ -63,7 +64,9 @@ def hello_world():
 
 
 
-
+if 'ON_HEROKU' in os.environ:
+	print('\non heroku!! :)')
+	models.initialize()
 
 if __name__ == '__main__':
 	models.initialize()
