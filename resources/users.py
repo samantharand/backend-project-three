@@ -62,7 +62,7 @@ def register():
 			print('CREATED_USER_DICT, users.py line 60', created_user_dict)
 
 			return jsonify(
-				data = created_user_dict,
+				data = created_user_dict.json(),
 				message = "User created :)",
 				status = 201
 			), 201
