@@ -210,7 +210,8 @@ def delete_account(id):
 	user_to_delete = models.User.get_by_id(id)
 
 	if current_user.id == user_to_delete.id:
-		user_to_delete.delete_instance()
+		delete_query = models.User.delete().where(models.User.id == id)
+		delete_query.execute()
 
 		return jsonify(
 			data = {},

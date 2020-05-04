@@ -3,7 +3,7 @@ import datetime
 
 from flask_login import UserMixin
 
-DATABASE = SqliteDatabase('quart.sqlite')
+DATABASE = SqliteDatabase('quart.sqlite', pragmas = {"foreign_keys": 1})
 
 class User(UserMixin, Model):
 	username = CharField(unique=True)
@@ -20,7 +20,7 @@ class User(UserMixin, Model):
 
 class Artwork(Model):
 	title = CharField()
-	artist = ForeignKeyField(User, backref='artworks')
+	artist = ForeignKeyField(User, backref='artworks', on_delete="CASCADE")
 	inspiration = TextField()
 	medium = CharField()
 	image = CharField()
