@@ -29,7 +29,7 @@ class Artwork(Model):
 	inspiration = TextField()
 	medium = CharField()
 	image = TextField()
-	date_made = DateTimeField()
+	date_made = DateField()
 	date_posted = DateTimeField(default=datetime.datetime.now)
 
 	class Meta:
