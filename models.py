@@ -28,7 +28,7 @@ class Artwork(Model):
 	artist = ForeignKeyField(User, backref='artworks', on_delete="CASCADE")
 	inspiration = TextField()
 	medium = CharField()
-	image = CharField()
+	image = TextField()
 	date_made = DateTimeField()
 	date_posted = DateTimeField(default=datetime.datetime.now)
 
